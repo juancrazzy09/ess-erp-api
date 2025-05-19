@@ -7,7 +7,8 @@ namespace API.Models
     public partial class UserTable
     {
         [Key]
-        public long UserId { get; set; }
+        public long Id { get; set; }
+        public long? UserId { get; set; }
         public string? Fname { get; set; }
         public string? Mname { get; set; }
         public string? Lname { get; set; }
@@ -16,6 +17,8 @@ namespace API.Models
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public string? ActiveStatus { get; set; }
+        public string? UserRole { get; set; }   
+        public string? SpecialRole { get; set; }
 
     }
 }

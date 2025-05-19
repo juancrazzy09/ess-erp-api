@@ -1,8 +1,50 @@
 [
   {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "GetOnlineApplicationByStudent",
+    "RelativePath": "api/admission/get-online-application",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "InsertStudentOnlineApp",
+    "RelativePath": "api/admission/student-online-application",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "student",
+        "Type": "API.Uitilities.DTOs.StudentDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controllers.Common.AuthApiController",
     "Method": "CreateAccount",
-    "RelativePath": "api/create-account",
+    "RelativePath": "api/auth/create-account",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -17,8 +59,122 @@
   },
   {
     "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetBrgyDropdown",
+    "RelativePath": "api/auth/get-barangay-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "MunicipalityId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetCampusDropdown",
+    "RelativePath": "api/auth/get-campus-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetDivisionDropdown",
+    "RelativePath": "api/auth/get-division-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetLevelDropdown",
+    "RelativePath": "api/auth/get-level-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "DivId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetMunicipalityDropdown",
+    "RelativePath": "api/auth/get-municipality-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProvinceId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetNationalityDropdown",
+    "RelativePath": "api/auth/get-nationality-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetProvinceDropdown",
+    "RelativePath": "api/auth/get-province-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetReligionDropdown",
+    "RelativePath": "api/auth/get-religion-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
+    "Method": "GetStrandDropdown",
+    "RelativePath": "api/auth/get-strand-dropdown",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "levelId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AuthApiController",
     "Method": "Login",
-    "RelativePath": "api/login",
+    "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -34,7 +190,7 @@
   {
     "ContainingType": "API.Controllers.Common.AuthApiController",
     "Method": "GetUserProfile",
-    "RelativePath": "api/user-profile",
+    "RelativePath": "api/auth/user-profile",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

@@ -30,6 +30,7 @@ namespace API.Uitilities.Repositories
                 }
                 else
                 {
+                    //Insert User info for UserTable
                     UserTable user = new UserTable
                     {
                         Fname = userDetails.Fname,
@@ -100,8 +101,6 @@ namespace API.Uitilities.Repositories
                         user.Token = token;
                         return user;
                     }
-                   
-                      
                 }
                 return null;
                
@@ -134,6 +133,180 @@ namespace API.Uitilities.Repositories
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while getting the user: " + ex.Message);
+            }
+        }
+        public async Task<IEnumerable<CampusDto>> GetCampusDropdown()
+        {
+            try
+            {
+                var query = await db.CampusTable.Select( c => new CampusDto
+                {
+                    CampusId = c.CampusId,
+                    CampusName = c.CampusName,
+                    DateCreated = c.DateCreated,
+
+                }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<DivisionDto>> GetDivisionDropdown()
+        {
+            try
+            {
+                var query = await db.DivisionTable.Select(c => new DivisionDto
+                {
+                    DivId = c.DivId,
+                    DivName = c.DivName,
+                    DateCreated = c.DateCreated,
+
+                }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<LevelDto>> GetLevelDropdown(int DivId = 0)
+        {
+            try
+            {
+                var query = await db.LevelTable
+                    .Where(l => l.DivId == DivId)
+                    .Select(l => new LevelDto
+                    {
+                        LevelId = l.LevelId,
+                        DivId = l.DivId,
+                        LevelName = l.LevelName,
+                        DateCreated = l.DateCreated,
+
+                    }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<StrandDto>> GetStrandDropdown(int levelId = 0)
+        {
+            try
+            {
+                var query = await db.StrandTable
+                    .Where(s => s.LevelId == levelId)
+                    .Select(s => new StrandDto
+                    {
+                        StrandId = s.StrandId,
+                        LevelId = s.LevelId,
+                        StrandName = s.StrandName,
+                        DateCreated= s.DateCreated,
+
+                    }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<NationalityDto>> GetNationalityDropdown()
+        {
+            try
+            {
+                var query = await db.NationalityTable.Select(n => new NationalityDto
+                {
+                    NationalityId = n.NationalityId,
+                    NationalityName = n.NationalityName,
+                    DateCreated = n.DateCreated,
+
+                }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<ReligionDto>> GetReligionDropdown()
+        {
+            try
+            {
+                var query = await db.ReligionTable.Select(n => new ReligionDto
+                {
+                    ReligionId = n.ReligionId,
+                    ReligionName = n.ReligionName,
+                    DateCreated = n.DateCreated,
+
+                }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<ProvinceDto>> GetProvinceDropdown()
+        {
+            try
+            {
+                var query = await db.ProvincesTable.Select(n => new ProvinceDto
+                {
+                    ProvinceId = n.ProvinceId,
+                    ProvinceName = n.ProvinceName,
+                    DateCreated = n.DateCreated,
+
+                }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<MunicipalityDto>> GetMunicipalityDropdown(long ProvinceId = 0)
+        {
+            try
+            {
+                var query = await db.MunicipalityTable
+                    .Where(n => n.ProvinceId == ProvinceId) 
+                    .Select(n => new MunicipalityDto
+                    {
+                        MunicipalityId = n.MunicipalityId,
+                        ProvinceId = n.ProvinceId,
+                        MunicipalityName = n.MunicipalityName,
+                        DateCreated = n.DateCreated,
+
+                    }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<IEnumerable<BrgyDto>> GetBrgyDropdown(long MunicipalityId = 0)
+        {
+            try
+            {
+                var query = await db.BarangayTable
+                    .Where(n => n.MunicipalityId == MunicipalityId) 
+                    .Select(n => new BrgyDto
+                    {
+                        BrgyId = n.BrgyId,
+                        MunicipalityId = n.MunicipalityId,
+                        BrgyName = n.BrgyName,
+                        DateCreated = n.DateCreated,
+
+                    }).ToListAsync();
+                return query;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

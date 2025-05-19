@@ -107,16 +107,20 @@ namespace API
                     }
                 };
             });
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            //Remove due to conflict of Json Return Content Type 15-05-2025
+            //services.AddControllersWithViews()
+            //    .AddNewtonsoftJson(options =>
+            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            //); 
 
             services.AddCors();
 
 
-            //SERVICES
-            services.AddTransient<IAuthRepository, AuthRepository>(); 
+            //SERVICES or REPOSITORY
+            services.AddTransient<IAuthRepository, AuthRepository>();
+            services.AddTransient<IAdmissionRepository, AdmissionRepository>();
+
+
 
             services.Configure<FormOptions>(options =>
             {

@@ -1,0 +1,63 @@
+﻿namespace API.Uitilities.DTOs
+{
+    public class StudentDtos
+    {
+        public long StudentId { get; set; }
+        public string? StudentNumber { get; set; }
+        public string? Fname { get; set; }
+        public string? Mname { get; set; }
+        public string? Lname { get; set; }
+        public string? Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string? PlaceOfBirth { get; set; }
+        public int? CampusId { get; set; }
+        public string? CampusName { get; set; }
+        public int? DivId { get; set; }
+        public string? DivName { get; set; }
+        public int? LevelId { get; set; }
+        public string? LevelName { get; set; }
+        public int? StrandId { get; set; }
+        public string? StrandName { get; set; }
+        public string? StudentType { get; set; }
+        public int? NationalityId { get; set; }
+        public string? NationalityName { get; set; }    
+        public long? ReligionId { get; set; }
+        public string? ReligionName { get; set; }
+        public string? F_Fname { get; set; }
+        public string? F_Mname { get; set; }
+        public string? F_Lname { get; set; }
+        public string? FathersName { get; set; }
+        public string? FathersOccupation { get; set; }
+        public string? FathersEmail { get; set; }
+        public string? FathersPhone { get; set; }
+        public string? M_Fname { get; set; }
+        public string? M_Mname {  get; set; }
+        public string? M_Lname { get; set; }
+        public string? MothersMaidenName { get; set; }
+        public string? MothersOccupation { get; set; }
+        public string? MothersEmail { get; set; }
+        public string? MothersPhone { get; set; }
+        public string? C_Fname { get; set; }
+        public string? C_Mname { get; set; }
+        public string? C_Lname { get; set; }
+        public string? ContactPerson { get; set; }
+        public string? ContactPersonEmail { get; set; }
+        public string? EmailVerificationCode { get; set; }
+        public string? CPRelationship { get; set; }
+        public string? HomePhoneNo { get; set; }
+        public string? MobilePhoneNo { get; set; }
+        public long? ProvinceId { get; set; }
+        public long? MunicipalityId { get; set; }
+        public long? BrgyId { get; set; }
+        public string? HomeStreetAddress { get; set; }
+        public string? CPPresentAddress { get; set; }
+        public string? StudentPic2x2 { get; set; }
+        public string? StudentBirthCert { get; set; }
+        public string? StudentBaptismal { get; set; }
+        public string? GoodMoral { get; set; }
+        public string? CurrentReportCard { get; set; }
+        public string? ActiveStatus { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+    }
+}
