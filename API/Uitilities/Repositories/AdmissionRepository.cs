@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 namespace API.Uitilities.Repositories
@@ -178,7 +179,7 @@ namespace API.Uitilities.Repositories
                     db.GuardianTable.Add(guardian);
                     await db.SaveChangesAsync();
 
-                    //Insert student to UserTable (Master Table for all users)
+                    ////Insert student to UserTable (Master Table for all users)
                     //UserTable userDetails = new UserTable
                     //{
                     //    UserId = student.StudentId,
@@ -204,8 +205,7 @@ namespace API.Uitilities.Repositories
                 throw new Exception("An error occurred while creating the user: " + ex.Message);
             }
         }
-        public async Task<List<StudentDtos>> GetOnlineApplicationByStudent(
-           string keyword, int page = 1, int pageSize = 10 )
+        public async Task<List<StudentDtos>> GetOnlineApplicationByStudent(DataTableRequestDto req)
         {
             try
             {
@@ -338,8 +338,8 @@ namespace API.Uitilities.Repositories
                                        DateCreated = studentFinalTable.DateCreated,
                                    }
                                   )
-                                  .Skip((page - 1) * pageSize)
-                                  .Take(pageSize)
+                                  .Skip((req.PageNumber - 1) * req.PageSize)
+                                  .Take(req.PageSize)
                                   .ToList(); ;
 
                 return finalQuery;

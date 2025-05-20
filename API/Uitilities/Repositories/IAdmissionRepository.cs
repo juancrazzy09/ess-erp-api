@@ -6,6 +6,6 @@ namespace API.Uitilities.Repositories
     public interface IAdmissionRepository
     {
         Task<StudentDtos?> InsertStudentOnlineApp(StudentDtos student);
-        Task<List<StudentDtos>> GetOnlineApplicationByStudent(string keyword, int page = 1, int pageSize = 10) ;
+        Task<List<StudentDtos>> GetOnlineApplicationByStudent(DataTableRequestDto req) ;
     }
 }

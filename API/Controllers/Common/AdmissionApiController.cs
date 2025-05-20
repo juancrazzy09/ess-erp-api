@@ -25,7 +25,7 @@ namespace API.Controllers.Common
                 var res = await _iadmissionRepository.InsertStudentOnlineApp(student);
                 if (res == null)
                 {
-                    return StatusCode(500, "Student already exists.");
+                    return Ok(new { success = false, message = "Student already exists." });
                 }
                 else
                 {
@@ -40,11 +40,18 @@ namespace API.Controllers.Common
         [Authorize]
         [HttpPost]
         [Route("get-online-application")]
-        public async Task<IActionResult> GetOnlineApplicationByStudent([FromQuery] string keyword, [FromQuery] int page = 1,[FromQuery] int pageSize = 10 )
+        public async Task<IActionResult> GetOnlineApplicationByStudent([FromBody] DataTableRequestDto req)
         {
             try
             {
-                var res = await _iadmissionRepository.GetOnlineApplicationByStudent(keyword, page, pageSize);
+                var data = await _iadmissionRepository.GetOnlineApplicationByStudent(req);
+
+                var res = new DataTableResponseDto<StudentDtos>
+                {
+                    Data = data,
+                    RecordsTotal = data.Count,
+                    RecordsFiltered = data.Count,
+                };
                 return Ok(res);
             }
             catch (Exception ex)

@@ -38,8 +38,10 @@ namespace API.Uitilities.Repositories
                         Lname = userDetails.Lname,
                         Email = userDetails.Email,
                         Password = BCrypt.Net.BCrypt.HashPassword(userDetails.Password),
-                        ActiveStatus = "P", 
-                        DateCreated = DateTime.Now
+                        ActiveStatus = "Y", 
+                        DateCreated = DateTime.Now,
+                        UserRole = userDetails.UserRole,
+                        SpecialRole = userDetails.SpecialRole,
                     };
                     db.UsersTable.Add(user);
                     await db.SaveChangesAsync();
@@ -66,7 +68,9 @@ namespace API.Uitilities.Repositories
                         Lname = u.Lname,
                         Email = u.Email,
                         Password = u.Password,
-                        ActiveStatus = u.ActiveStatus
+                        ActiveStatus = u.ActiveStatus,
+                        UserRole = u.UserRole,
+                        SpecialRole = u.SpecialRole
                     })
                     .FirstOrDefaultAsync();
                 bool verified = false;
@@ -84,7 +88,8 @@ namespace API.Uitilities.Repositories
                         new Claim("Mname", user.Mname.ToString()),
                         new Claim("Lname", user.Lname.ToString()),
                         new Claim("ActiveStatus", user.ActiveStatus.ToString()),
-
+                        new Claim("UserRole" , user.UserRole.ToString()),
+                        new Claim("SpecialRole", user.SpecialRole.ToString())
                         };
                         // Encrypt credentials
                         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
@@ -235,13 +240,15 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.ReligionTable.Select(n => new ReligionDto
-                {
-                    ReligionId = n.ReligionId,
-                    ReligionName = n.ReligionName,
-                    DateCreated = n.DateCreated,
+                var query = await db.ReligionTable
+                    .Where(n => n.ActiveStatus == "Y")
+                    .Select(n => new ReligionDto
+                    {
+                        ReligionId = n.ReligionId,
+                        ReligionName = n.ReligionName,
+                        DateCreated = n.DateCreated,
 
-                }).ToListAsync();
+                    }).ToListAsync();
                 return query;
             }
             catch (Exception ex)

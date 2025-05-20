@@ -44,7 +44,7 @@ namespace API.Controllers.Common
                 {
                 var res = await _iauthRepository.Login(loginDto);
                 if (res == null) {
-                    return Conflict("Wrong Email or Password.");
+                    return Ok(new { success = false, message = "Wrong email and password." });
                 }
                 else
                 {

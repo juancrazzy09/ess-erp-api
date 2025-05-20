@@ -17,6 +17,8 @@
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public string? ActiveStatus { get; set; }
+        public string? UserRole { get; set; }
+        public string? SpecialRole { get; set; }
         public string? Token { get; set; }
     }
     public class UserDtoJwt

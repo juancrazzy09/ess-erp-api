@@ -8,19 +8,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "keyword",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "page",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "req",
+        "Type": "API.Uitilities.DTOs.DataTableRequestDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
