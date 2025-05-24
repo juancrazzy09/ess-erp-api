@@ -39,19 +39,42 @@ namespace API.Controllers.Common
         }
         [Authorize]
         [HttpPost]
-        [Route("get-online-application")]
-        public async Task<IActionResult> GetOnlineApplicationByStudent([FromBody] DataTableRequestDto req)
+        [Route("get-online-application-count")]
+        public async Task<IActionResult> GetOnlineApplicationByStudentCount()
         {
             try
             {
-                var data = await _iadmissionRepository.GetOnlineApplicationByStudent(req);
-
-                var res = new DataTableResponseDto<StudentDtos>
-                {
-                    Data = data,
-                    RecordsTotal = data.Count,
-                    RecordsFiltered = data.Count,
-                };
+                var data = await _iadmissionRepository.GetOnlineApplicationByStudentCount();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("generate-application-table")]
+        public async Task<IActionResult> GenerateApplicationTable([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string search = "", [FromQuery] string status = "")
+        {
+            try
+            {
+                var res = await _iadmissionRepository.GenerateApplicationTable(page, pageSize, search, status);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("get-student-id")]
+        public async Task<IActionResult> GetStudentById([FromQuery] long StudentId = 0)
+        {
+            try
+            {
+                var res = await _iadmissionRepository.GetStudentById(StudentId);
                 return Ok(res);
             }
             catch (Exception ex)

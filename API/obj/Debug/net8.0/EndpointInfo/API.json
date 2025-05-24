@@ -36,30 +36,82 @@
         }
       }
     },
-    "/api/admission/get-online-application": {
+    "/api/admission/get-online-application-count": {
       "post": {
         "tags": [
           "AdmissionApi"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DataTableRequestDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DataTableRequestDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DataTableRequestDto"
-              }
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admission/generate-application-table": {
+      "post": {
+        "tags": [
+          "AdmissionApi"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
             }
           }
-        },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admission/get-student-id": {
+      "post": {
+        "tags": [
+          "AdmissionApi"
+        ],
+        "parameters": [
+          {
+            "name": "StudentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -349,32 +401,6 @@
         },
         "additionalProperties": false
       },
-      "DataTableRequestDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Draw": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "PageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "PageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "SearchValue": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "StudentDtos": {
         "type": "object",
         "properties": {
@@ -383,6 +409,10 @@
             "format": "int64"
           },
           "StudentNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationNumber": {
             "type": "string",
             "nullable": true
           },
@@ -440,8 +470,7 @@
           },
           "StrandId": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
           "StrandName": {
             "type": "string",

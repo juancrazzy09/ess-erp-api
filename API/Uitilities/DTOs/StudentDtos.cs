@@ -4,6 +4,7 @@
     {
         public long StudentId { get; set; }
         public string? StudentNumber { get; set; }
+        public string? ApplicationNumber { get; set; }
         public string? Fname { get; set; }
         public string? Mname { get; set; }
         public string? Lname { get; set; }
@@ -16,7 +17,7 @@
         public string? DivName { get; set; }
         public int? LevelId { get; set; }
         public string? LevelName { get; set; }
-        public int? StrandId { get; set; }
+        public int StrandId { get; set; }
         public string? StrandName { get; set; }
         public string? StudentType { get; set; }
         public int? NationalityId { get; set; }

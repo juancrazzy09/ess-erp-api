@@ -1,16 +1,57 @@
 [
   {
     "ContainingType": "API.Controllers.Common.AdmissionApiController",
-    "Method": "GetOnlineApplicationByStudent",
-    "RelativePath": "api/admission/get-online-application",
+    "Method": "GenerateApplicationTable",
+    "RelativePath": "api/admission/generate-application-table",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "req",
-        "Type": "API.Uitilities.DTOs.DataTableRequestDto",
-        "IsRequired": true
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "GetOnlineApplicationByStudentCount",
+    "RelativePath": "api/admission/get-online-application-count",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "GetStudentById",
+    "RelativePath": "api/admission/get-student-id",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "StudentId",
+        "Type": "System.Int64",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
