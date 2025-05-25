@@ -12,9 +12,9 @@ namespace API.Uitilities.Repositories
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly DBContext db;
+        private readonly EssErpDbContext db;
         private readonly IConfiguration configuration;
-        public AuthRepository(DBContext _db, IConfiguration configuration  )
+        public AuthRepository(EssErpDbContext _db, IConfiguration configuration  )
         {
             this.db = _db;
             this.configuration = configuration;
@@ -23,7 +23,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var userExist = db.UsersTable.Any(x => x.Email == userDetails.Email);
+                var userExist = db.UsersTables.Any(x => x.Email == userDetails.Email);
                 if (userExist)
                 {
                     return null;
@@ -31,7 +31,7 @@ namespace API.Uitilities.Repositories
                 else
                 {
                     //Insert User info for UserTable
-                    UserTable user = new UserTable
+                    UsersTable user = new UsersTable
                     {
                         Fname = userDetails.Fname,
                         Mname = userDetails.Mname,
@@ -43,7 +43,7 @@ namespace API.Uitilities.Repositories
                         UserRole = userDetails.UserRole,
                         SpecialRole = userDetails.SpecialRole,
                     };
-                    db.UsersTable.Add(user);
+                    db.UsersTables.Add(user);
                     await db.SaveChangesAsync();
                     userDetails.UserId = user.UserId;
                     return userDetails;
@@ -58,7 +58,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var user = await db.UsersTable
+                var user = await db.UsersTables
                     .Where(u => u.Email == loginDto.Email)
                     .Select(u => new UserDto
                     {
@@ -119,7 +119,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var user = await db.UsersTable
+                var user = await db.UsersTables
                     .Where(u => u.UserId == userId)
                     .Select(u => new UserDtoJwt
                     {
@@ -144,7 +144,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.CampusTable.Select( c => new CampusDto
+                var query = await db.CampusTables.Select( c => new CampusDto
                 {
                     CampusId = c.CampusId,
                     CampusName = c.CampusName,
@@ -162,7 +162,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.DivisionTable.Select(c => new DivisionDto
+                var query = await db.DivisionTables.Select(c => new DivisionDto
                 {
                     DivId = c.DivId,
                     DivName = c.DivName,
@@ -180,7 +180,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.LevelTable
+                var query = await db.LevelTables
                     .Where(l => l.DivId == DivId)
                     .Select(l => new LevelDto
                     {
@@ -201,7 +201,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.StrandTable
+                var query = await db.StrandTables
                     .Where(s => s.LevelId == levelId)
                     .Select(s => new StrandDto
                     {
@@ -222,7 +222,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.NationalityTable.Select(n => new NationalityDto
+                var query = await db.NationalityTables.Select(n => new NationalityDto
                 {
                     NationalityId = n.NationalityId,
                     NationalityName = n.NationalityName,
@@ -240,7 +240,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.ReligionTable
+                var query = await db.ReligionTables
                     .Where(n => n.ActiveStatus == "Y")
                     .Select(n => new ReligionDto
                     {
@@ -260,7 +260,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.ProvincesTable.Select(n => new ProvinceDto
+                var query = await db.ProvincesTables.Select(n => new ProvinceDto
                 {
                     ProvinceId = n.ProvinceId,
                     ProvinceName = n.ProvinceName,
@@ -278,7 +278,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.MunicipalityTable
+                var query = await db.MunicipalityTables
                     .Where(n => n.ProvinceId == ProvinceId) 
                     .Select(n => new MunicipalityDto
                     {
@@ -299,7 +299,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = await db.BarangayTable
+                var query = await db.BarangayTables
                     .Where(n => n.MunicipalityId == MunicipalityId) 
                     .Select(n => new BrgyDto
                     {

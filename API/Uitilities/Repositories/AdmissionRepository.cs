@@ -1,9 +1,11 @@
 ﻿using API.Models;
 using API.Uitilities.DTOs;
+using API.Uitilities.Helper;
 using API.Uitilities.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -13,9 +15,9 @@ namespace API.Uitilities.Repositories
 {
     public class AdmissionRepository : IAdmissionRepository
     {
-        private readonly DBContext db;
+        private readonly EssErpDbContext db;
         private readonly IConfiguration configuration;
-        public AdmissionRepository(DBContext db, IConfiguration configuration)
+        public AdmissionRepository(EssErpDbContext db, IConfiguration configuration)
         {
             this.db = db;
             this.configuration = configuration;
@@ -24,7 +26,8 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var userExist = db.StudentTable.Any(x => x.Fname == student.Fname && x.Mname == student.Mname && x.Lname == student.Lname);
+                var helper = new FileHelper();
+                var userExist = db.StudentTables.Any(x => x.Fname == student.Fname && x.Mname == student.Mname && x.Lname == student.Lname);
                 if (userExist)
                 {
                     return null;
@@ -41,7 +44,7 @@ namespace API.Uitilities.Repositories
                             DateCreated = student.DateCreated,
                             ActiveStatus = "P"
                         };
-                        db.ReligionTable.Add(religion);
+                        db.ReligionTables.Add(religion);
                         await db.SaveChangesAsync();
                         student.ReligionId = religion.ReligionId;
 
@@ -55,15 +58,16 @@ namespace API.Uitilities.Repositories
                             LevelId = student.LevelId,
                             DivId = student.DivId,
                             StrandId = student.StrandId,
-                            StudentType = "New",
+                            StudentType = student.StudentType,
                             NationalityId = student.NationalityId,
                             ReligionId = student.ReligionId,
                             Gender = student.Gender,
                             DateOfBirth = student.DateOfBirth,
-                            ActiveStatus = "P",
+                            PlaceOfBirth = student.PlaceOfBirth,
+                            ActiveStatus = student.ActiveStatus,
                             DateCreated = DateTime.Now
                         };
-                        db.StudentTable.Add(user);
+                        db.StudentTables.Add(user);
                         await db.SaveChangesAsync();
                         student.StudentId = user.StudentId;
                     }
@@ -79,15 +83,16 @@ namespace API.Uitilities.Repositories
                             LevelId = student.LevelId,
                             DivId = student.DivId,
                             StrandId = student.StrandId,
-                            StudentType = "New",
+                            StudentType = student.StudentType,
                             NationalityId = student.NationalityId,
                             ReligionId = student.ReligionId,
                             Gender = student.Gender,
                             DateOfBirth = student.DateOfBirth,
-                            ActiveStatus = "P",
+                            PlaceOfBirth = student.PlaceOfBirth,   
+                            ActiveStatus = student.ActiveStatus,
                             DateCreated = DateTime.Now
                         };
-                        db.StudentTable.Add(user);
+                        db.StudentTables.Add(user);
                         await db.SaveChangesAsync();
                         student.StudentId = user.StudentId;
                     }
@@ -97,40 +102,200 @@ namespace API.Uitilities.Repositories
                     {
                         StudentId = student.StudentId,
                         AppNumber = DateTime.Now.ToString("yyyyMMdd") + "-0" + student.StudentId,
-                        ActiveStatus = "P",
+                        ActiveStatus = student.ActiveStatus,
                         DateCreated = DateTime.Now
                     };
-                    db.StudentAppTable.Add(application);
+                    db.StudentAppTables.Add(application);
                     await db.SaveChangesAsync();
-                    //Insert Student Files from Online Application
-                    StudentAppFilesTable studentFiles = new StudentAppFilesTable
+
+                    //Insert doc files to Document Table
+
+                    var folderName = $"students/{student.StudentId}";
+                    
+                    if(student.StudentPic2x2 != null)
                     {
-                        StudentId = student.StudentId,
-                        StudentPic2x2 = student.StudentId + "_" + student.StudentPic2x2,
-                        StudentBirthCert = student.StudentId + "_" + student.StudentBirthCert,
-                        StudentBaptismal = student.StudentId + "_" + student.StudentBaptismal,
-                        GoodMoral = student.StudentId + "_" + student.GoodMoral,
-                        CurrentReportCard = student.StudentId + "_" + student.CurrentReportCard,
-                        DateCreated = DateTime.Now
-                    };
-                    db.StudentAppFilesTable.Add(studentFiles);
-                    await db.SaveChangesAsync();
-                    //Insert doc files to Student Docs Table
-                    StudentDocsTable studentSubmittedFiles = new StudentDocsTable
+                        var filePath = await helper.SaveAndCompressFileAsync(student.StudentPic2x2, folderName, student.StudentId);
+                        db.DocumentFileTables.Add(new DocumentFileTable
+                        {
+                            UserId = student.StudentId,
+                            UploadedById = student.StudentId,
+                            DocumentType = "StudentPic2x2",
+                            FileName = Path.GetFileName(filePath),
+                            FilePath = filePath,
+                            Remarks = "Uploaded in Online App",
+                            ActiveStatus = student.ActiveStatus,
+                            DateCreated = DateTime.Now
+                        });
+                        await db.SaveChangesAsync();
+                    }
+
+                    if (student.StudentBirthCert != null)
                     {
-                        StudentId = studentFiles.StudentId,
-                        TwoByTwoPhoto = studentFiles.StudentPic2x2,
-                        TwoByTwoPhotoSubmitted = DateTime.Now,
-                        GoodMoral = studentFiles.GoodMoral,
-                        GoodMoralSubmitted = DateTime.Now,
-                        LatestReportCard = studentFiles.CurrentReportCard,
-                        LatestReportCardSubmitted = DateTime.Now,
-                        DateCreated = DateTime.Now,
-                        ActiveStatus = "Y"
-                    };
-                    db.StudentDocstable.Add(studentSubmittedFiles);
-                    await db.SaveChangesAsync();
-                    //Insert father's data of student in Table
+                        var filePath = await helper.SaveAndCompressFileAsync(student.StudentBirthCert, folderName, student.StudentId);
+                        db.DocumentFileTables.Add(new DocumentFileTable
+                        {
+                            UserId = student.StudentId,
+                            UploadedById = student.StudentId,
+                            DocumentType = "StudentBirthCert",
+                            FileName = Path.GetFileName(filePath),
+                            FilePath = filePath,
+                            Remarks = "Uploaded in Online App",
+                            ActiveStatus = student.ActiveStatus,
+                            DateCreated = DateTime.Now
+                        });
+                        await db.SaveChangesAsync();
+                    }
+
+                    if (student.StudentBaptismal != null)
+                    {
+                        var filePath = await helper.SaveAndCompressFileAsync(student.StudentBaptismal, folderName, student.StudentId);
+                        db.DocumentFileTables.Add(new DocumentFileTable
+                        {
+                            UserId = student.StudentId,
+                            UploadedById = student.StudentId,
+                            DocumentType = "StudentBaptismal",
+                            FileName = Path.GetFileName(filePath),
+                            FilePath = filePath,
+                            Remarks = "Uploaded in Online App",
+                            ActiveStatus = student.ActiveStatus,
+                            DateCreated = DateTime.Now
+                        });
+                        await db.SaveChangesAsync();
+                    }
+
+                    if (student.GoodMoral != null)
+                    {
+                        var filePath = await helper.SaveAndCompressFileAsync(student.GoodMoral, folderName, student.StudentId);
+                        db.DocumentFileTables.Add(new DocumentFileTable
+                        {
+                            UserId = student.StudentId,
+                            UploadedById = student.StudentId,
+                            DocumentType = "GoodMoral",
+                            FileName = Path.GetFileName(filePath),
+                            FilePath = filePath,
+                            Remarks = "Uploaded in Online App",
+                            ActiveStatus = student.ActiveStatus,
+                            DateCreated = DateTime.Now
+                        });
+                        await db.SaveChangesAsync();
+                    }
+
+                    if (student.CurrentReportCard != null)
+                    {
+                        var filePath = await helper.SaveAndCompressFileAsync(student.CurrentReportCard, folderName, student.StudentId);
+                        db.DocumentFileTables.Add(new DocumentFileTable
+                        {
+                            UserId = student.StudentId,
+                            UploadedById = student.StudentId,
+                            DocumentType = "CurrentReportCard",
+                            FileName = Path.GetFileName(filePath),
+                            FilePath = filePath,
+                            Remarks = "Uploaded in Online App",
+                            ActiveStatus = student.ActiveStatus,
+                            DateCreated = DateTime.Now
+                        });
+                        await db.SaveChangesAsync();
+                    }
+
+
+                    //student.StudentPic2x2 = StudentPic2x2 != null
+                    //    ? await helper.SaveAndCompressFileAsync(StudentPic2x2, folderName, student.StudentId)
+                    //    : null;
+
+                    //student.StudentBirthCert = StudentBirthCert != null
+                    //    ? await helper.SaveAndCompressFileAsync(StudentBirthCert, folderName, student.StudentId)
+                    //    : null;
+
+                    //student.StudentBaptismal = StudentBaptismal != null
+                    //    ? await helper.SaveAndCompressFileAsync(StudentBaptismal, folderName, student.StudentId)
+                    //    : null;
+
+                    //student.GoodMoral = GoodMoral != null
+                    //    ? await helper.SaveAndCompressFileAsync(GoodMoral, folderName, student.StudentId)
+                    //    : null;
+
+                    //student.CurrentReportCard = CurrentReportCard != null
+                    //    ? await helper.SaveAndCompressFileAsync(CurrentReportCard, folderName, student.StudentId)
+                    //    : null;
+
+                    //if (student.StudentPic2x2FileName != null)
+                    //{
+                    //    db.DocumentFileTables.Add(new DocumentFileTable
+                    //    {
+                    //        UserId = student.StudentId,
+                    //        UploadedById = student.StudentId,
+                    //        DocumentType = "StudentPic2x2",
+                    //        FileName = Path.GetFileName(student.StudentPic2x2FileName),   
+                    //        FilePath = student.StudentPic2x2FileName,
+                    //        Remarks = "Uploaded in Online App",
+                    //        ActiveStatus = student.ActiveStatus,
+                    //        DateCreated = DateTime.Now
+                    //    });
+                    //    await db.SaveChangesAsync();
+                    //}
+
+                    //if (student.StudentBirthCertFileName != null)
+                    //{
+                    //    db.DocumentFileTables.Add(new DocumentFileTable
+                    //    {
+                    //        UserId = student.StudentId,
+                    //        UploadedById = student.StudentId,
+                    //        DocumentType = "BirthCertificate",
+                    //        FileName = Path.GetFileName(student.StudentBirthCertFileName),   
+                    //        FilePath = student.StudentBirthCertFileName,
+                    //        Remarks = "Uploaded in Online App",
+                    //        ActiveStatus = student.ActiveStatus,
+                    //        DateCreated = DateTime.Now
+                    //    });
+                    //    await db.SaveChangesAsync();
+                    //}
+
+                    //if (student.StudentBaptismalFileName != null)
+                    //{
+                    //    db.DocumentFileTables.Add(new DocumentFileTable
+                    //    {
+                    //        UserId = student.StudentId,
+                    //        UploadedById = student.StudentId,
+                    //        DocumentType = "Baptismal",
+                    //        FileName = Path.GetFileName(student.StudentBaptismalFileName),   
+                    //        FilePath = student.StudentBaptismalFileName,
+                    //        Remarks = "Uploaded in Online App",
+                    //        ActiveStatus = student.ActiveStatus,
+                    //        DateCreated = DateTime.Now
+                    //    });
+                    //    await db.SaveChangesAsync();
+                    //}
+                    //if (student.GoodMoralFileName != null)
+                    //{
+                    //    db.DocumentFileTables.Add(new DocumentFileTable
+                    //    {
+                    //        UserId = student.StudentId,
+                    //        UploadedById = student.StudentId,
+                    //        DocumentType = "GoodMoral",
+                    //        FileName = Path.GetFileName(student.GoodMoralFileName),  
+                    //        FilePath = student.GoodMoralFileName,
+                    //        Remarks = "Uploaded in Online App",
+                    //        ActiveStatus = student.ActiveStatus,
+                    //        DateCreated = DateTime.Now
+                    //    });
+                    //    await db.SaveChangesAsync();
+                    //}
+                    //if (student.CurrentReportCardFileName != null)
+                    //{
+                    //    db.DocumentFileTables.Add(new DocumentFileTable
+                    //    {
+                    //        UserId = student.StudentId,
+                    //        UploadedById = student.StudentId,
+                    //        DocumentType = "ReportCard",
+                    //        FileName = Path.GetFileName(student.CurrentReportCardFileName),
+                    //        FilePath = student.CurrentReportCardFileName,
+                    //        Remarks = "Uploaded in Online App",
+                    //        ActiveStatus = student.ActiveStatus,
+                    //        DateCreated = DateTime.Now
+                    //    });
+                    //    await db.SaveChangesAsync();
+                    //}
+
                     FathersTable father = new FathersTable
                     {
                         StudentId = student.StudentId,
@@ -141,9 +306,9 @@ namespace API.Uitilities.Repositories
                         Email = student.FathersEmail,
                         MobilePhoneNo = student.FathersPhone,
                         DateCreated = DateTime.Now,
-                        ActiveStatus = "P",
+                        ActiveStatus = student.ActiveStatus,
                     };
-                    db.FathersTable.Add(father);
+                    db.FathersTables.Add(father);
                     await db.SaveChangesAsync();
                     //Insert mother's data of student in Table
                     MothersTable mother = new MothersTable
@@ -156,9 +321,9 @@ namespace API.Uitilities.Repositories
                         Email = student.MothersEmail,
                         MobilePhoneNo = student.MothersPhone,
                         DateCreated = DateTime.Now,
-                        ActiveStatus = "P",
+                        ActiveStatus = student.ActiveStatus,
                     };
-                    db.MothersTable.Add(mother);
+                    db.MothersTables.Add(mother);
                     await db.SaveChangesAsync();
                     //Insert student's guardian in Table
                     GuardianTable guardian = new GuardianTable
@@ -167,16 +332,18 @@ namespace API.Uitilities.Repositories
                         Fname = student.M_Fname,
                         Mname = student.M_Mname,
                         Lname = student.M_Lname,
+                        Relationship = student.CPRelationship,
                         Email = student.ContactPersonEmail,
                         MobilePhoneNo = student.MobilePhoneNo,
                         HomePhoneNo = student.HomePhoneNo,
                         ProvinceId = student.ProvinceId,
                         MunicipalityId = student.MunicipalityId,
                         BrgyId = student.BrgyId,
+                        HomeStreetAddress = student.HomeStreetAddress,
                         DateCreated = DateTime.Now,
-                        ActiveStatus = "P",
+                        ActiveStatus = student.ActiveStatus,
                     };
-                    db.GuardianTable.Add(guardian);
+                    db.GuardianTables.Add(guardian);
                     await db.SaveChangesAsync();
 
                     ////Insert student to UserTable (Master Table for all users)
@@ -209,7 +376,7 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var statusCounts = await db.StudentAppTable
+                var statusCounts = await db.StudentAppTables
                                         .GroupBy(x => x.ActiveStatus)
                                         .Select(g => new { Status = g.Key, Count = g.Count() })
                                         .ToListAsync();
@@ -238,28 +405,26 @@ namespace API.Uitilities.Repositories
         {
             try
             {
-                var query = from studentTable in db.StudentTable
-                            join studentFile in db.StudentAppFilesTable
-                                on studentTable.StudentId equals studentFile.StudentId into fileJoin
-                            from studentFile in fileJoin.DefaultIfEmpty()
+                //Generating table and paginating the table
+                var query = from studentTable in db.StudentTables
 
-                            join studentApplication in db.StudentAppTable
+                            join studentApplication in db.StudentAppTables
                                 on studentTable.StudentId equals studentApplication.StudentId into appJoin
                             from studentApplication in appJoin.DefaultIfEmpty()
 
-                            join campusTable in db.CampusTable
+                            join campusTable in db.CampusTables
                                 on studentTable.CampusId equals campusTable.CampusId into campusJoin
                             from campusTable in campusJoin.DefaultIfEmpty()
 
-                            join levelTable in db.LevelTable
+                            join levelTable in db.LevelTables
                                 on studentTable.LevelId equals levelTable.LevelId into levelJoin
                             from levelTable in levelJoin.DefaultIfEmpty()
 
-                            join divisionTable in db.DivisionTable
+                            join divisionTable in db.DivisionTables
                                 on studentTable.DivId equals divisionTable.DivId into divisionJoin
                             from divisionTable in divisionJoin.DefaultIfEmpty()
 
-                            join strandTable in db.StrandTable
+                            join strandTable in db.StrandTables
                                 on studentTable.StrandId equals strandTable.StrandId into strandJoin
                             from strandTable in strandJoin.DefaultIfEmpty()
 
@@ -305,38 +470,34 @@ namespace API.Uitilities.Repositories
             {
                 //query to get the student detail with 4 student tables
                 var studentDetails = await (
-                    from studentTable in db.StudentTable
+                    from studentTable in db.StudentTables
                     where studentTable.StudentId == StudentId
 
-                    join studentFile in db.StudentAppFilesTable
-                        on studentTable.StudentId equals studentFile.StudentId into fileJoin
-                    from studentFile in fileJoin.DefaultIfEmpty()
-
-                    join studentApplication in db.StudentAppTable
+                    join studentApplication in db.StudentAppTables
                         on studentTable.StudentId equals studentApplication.StudentId into appJoin
                     from studentApplication in appJoin.DefaultIfEmpty()
 
-                    join campusTable in db.CampusTable
+                    join campusTable in db.CampusTables
                         on studentTable.CampusId equals campusTable.CampusId into campusJoin
                     from campusTable in campusJoin.DefaultIfEmpty()
 
-                    join levelTable in db.LevelTable
+                    join levelTable in db.LevelTables
                         on studentTable.LevelId equals levelTable.LevelId into levelJoin
                     from levelTable in levelJoin.DefaultIfEmpty()
 
-                    join divisionTable in db.DivisionTable
+                    join divisionTable in db.DivisionTables
                         on studentTable.DivId equals divisionTable.DivId into divisionJoin
                     from divisionTable in divisionJoin.DefaultIfEmpty()
 
-                    join strandTable in db.StrandTable
+                    join strandTable in db.StrandTables
                         on studentTable.StrandId equals strandTable.StrandId into strandJoin
                     from strandTable in strandJoin.DefaultIfEmpty()
 
-                    join nationalityTable in db.NationalityTable
+                    join nationalityTable in db.NationalityTables
                         on studentTable.NationalityId equals nationalityTable.NationalityId into natJoin
                     from nationalityTable in natJoin.DefaultIfEmpty()
 
-                    join religionTable in db.ReligionTable
+                    join religionTable in db.ReligionTables
                         on studentTable.ReligionId equals religionTable.ReligionId into religionJoin
                     from religionTable in religionJoin.DefaultIfEmpty()
 
@@ -354,8 +515,8 @@ namespace API.Uitilities.Repositories
                         LevelName = levelTable.LevelName,
                         DivisionId = divisionTable.DivId,
                         DivisionName = divisionTable.DivName,
-                        StrandId = strandTable.StrandId,
-                        StrandName = strandTable.StrandName,
+                        StrandId = (int?)strandTable.StrandId,
+                        StrandName = (string?)strandTable.StrandName,
                         StudentType = studentTable.StudentType,
                         NationalityId = nationalityTable.NationalityId,
                         NationalityName = nationalityTable.NationalityName,
@@ -371,9 +532,9 @@ namespace API.Uitilities.Repositories
 
                 //query for parent info of student
                 var parentsDetails = await (
-                    from fathersTable in db.FathersTable
+                    from fathersTable in db.FathersTables
 
-                    join mothersTable in db.MothersTable
+                    join mothersTable in db.MothersTables
                         on fathersTable.StudentId equals mothersTable.StudentId into motherJoin
                     from mothersTable in motherJoin.DefaultIfEmpty() // LEFT JOIN
 
@@ -394,23 +555,24 @@ namespace API.Uitilities.Repositories
                         M_Lname = mothersTable.Lname,
                         MothersMaidenName = mothersTable.Lname + ", " + mothersTable.Fname + " " + mothersTable.Mname,
                         MothersOccupation = mothersTable.Occupation,
+                        MothersEmail = mothersTable.Email,
                         MothersPhone = mothersTable.MobilePhoneNo
                     }
                 ).ToListAsync();
 
                 //query for guardian detail
                 var guardianDetails = await (
-                    from guardianTable in db.GuardianTable
+                    from guardianTable in db.GuardianTables
 
-                    join provinceTable in db.ProvincesTable
+                    join provinceTable in db.ProvincesTables
                         on guardianTable.ProvinceId equals provinceTable.ProvinceId into provinceJoin
                     from provinceTable in provinceJoin.DefaultIfEmpty()
 
-                    join municipalityTable in db.MunicipalityTable
+                    join municipalityTable in db.MunicipalityTables
                         on guardianTable.MunicipalityId equals municipalityTable.MunicipalityId into muniJoin
                     from municipalityTable in muniJoin.DefaultIfEmpty()
 
-                    join brgyTable in db.BarangayTable
+                    join brgyTable in db.BarangayTables
                         on guardianTable.BrgyId equals brgyTable.BrgyId into brgyJoin
                     from brgyTable in brgyJoin.DefaultIfEmpty()
 
@@ -434,7 +596,7 @@ namespace API.Uitilities.Repositories
                     }
                 ).ToListAsync();
 
-                //joining all queries and paginate it to prevent to crash the API
+                //joining all queries and paginate it to prevent the crash of the API
                 var finalQuery = (
                     from student in studentDetails
 
@@ -470,29 +632,30 @@ namespace API.Uitilities.Repositories
                         Gender = student.Gender,
                         DateOfBirth = student.DateOfBirth,
                         PlaceOfBirth = student.PlaceOfBirth,
-                        F_Fname = parent?.F_Fname,
-                        F_Mname = parent?.F_Mname,
-                        F_Lname = parent?.F_Lname,
-                        FathersName = parent?.FathersName,
-                        FathersOccupation = parent?.FathersOccupation,
-                        FathersEmail = parent?.FathersEmail,
-                        FathersPhone = parent?.FathersPhone,
-                        M_Fname = parent?.M_Fname,
-                        M_Mname = parent?.M_Mname,
-                        M_Lname = parent?.M_Lname,
-                        MothersMaidenName = parent?.MothersMaidenName,
-                        MothersOccupation = parent?.MothersOccupation,
-                        MothersPhone = parent?.MothersPhone,
-                        C_Fname = guardian?.C_Fname,
-                        C_Mname = guardian?.C_Mname,
-                        C_Lname = guardian?.C_Lname,
-                        ContactPerson = guardian?.GuardianFullname,
-                        ContactPersonEmail = guardian?.GuardianEmail,
-                        CPRelationship = guardian?.GuardianRelationship,
-                        HomePhoneNo = guardian?.HomePhoneNo,
-                        MobilePhoneNo = guardian?.MobilePhoneNo,
-                        CPPresentAddress = guardian?.GuardianAddress,
-                        HomeStreetAddress = guardian?.GuardianHomeStreetAddress,
+                        F_Fname = parent.F_Fname,
+                        F_Mname = parent.F_Mname,
+                        F_Lname = parent.F_Lname,
+                        FathersName = parent.FathersName,
+                        FathersOccupation = parent.FathersOccupation,
+                        FathersEmail = parent.FathersEmail,
+                        FathersPhone = parent.FathersPhone,
+                        M_Fname = parent.M_Fname,
+                        M_Mname = parent.M_Mname,
+                        M_Lname = parent.M_Lname,
+                        MothersMaidenName = parent.MothersMaidenName,
+                        MothersOccupation = parent.MothersOccupation,
+                        MothersEmail = parent.MothersEmail,
+                        MothersPhone = parent.MothersPhone,
+                        C_Fname = guardian.C_Fname,
+                        C_Mname = guardian.C_Mname,
+                        C_Lname = guardian.C_Lname,
+                        ContactPerson = guardian.GuardianFullname,
+                        ContactPersonEmail = guardian.GuardianEmail,
+                        CPRelationship = guardian.GuardianRelationship,
+                        HomePhoneNo = guardian.HomePhoneNo,
+                        MobilePhoneNo = guardian.MobilePhoneNo,
+                        CPPresentAddress = guardian.GuardianAddress,
+                        HomeStreetAddress = guardian.GuardianHomeStreetAddress,
                         ActiveStatus = student.ActiveStatus,
                         DateCreated = student.DateCreated
                     }

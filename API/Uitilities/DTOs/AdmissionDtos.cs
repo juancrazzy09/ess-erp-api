@@ -1,6 +1,7 @@
 ﻿namespace API.Uitilities.DTOs
 {
-    public class OnlineStudentAppDtos
+    
+    public partial class OnlineStudentAppDtos
     {
         public int? PendingCount { get; set; }
         public int? OngoingCount { get; set; }

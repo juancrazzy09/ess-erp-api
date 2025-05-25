@@ -65,9 +65,309 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "student",
-        "Type": "API.Uitilities.DTOs.StudentDtos",
-        "IsRequired": true
+        "Name": "StudentId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ApplicationNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Lname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Gender",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DateOfBirth",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "PlaceOfBirth",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CampusId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CampusName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DivId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "DivName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LevelId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "LevelName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StrandId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "StrandName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "NationalityId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "NationalityName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ReligionId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ReligionName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "F_Fname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "F_Mname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "F_Lname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FathersName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FathersOccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FathersEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FathersPhone",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "M_Fname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "M_Mname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "M_Lname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MothersMaidenName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MothersOccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MothersEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MothersPhone",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "C_Fname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "C_Mname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "C_Lname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContactPerson",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContactPersonEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EmailVerificationCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CPRelationship",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "HomePhoneNo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MobilePhoneNo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProvinceId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MunicipalityId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "BrgyId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "HomeStreetAddress",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CPPresentAddress",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DocumentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Remarks",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentPic2x2",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentBirthCert",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentBaptismal",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "GoodMoral",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "CurrentReportCard",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "ActiveStatus",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DateCreated",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "DateModified",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

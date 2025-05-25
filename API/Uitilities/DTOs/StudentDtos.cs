@@ -17,7 +17,7 @@
         public string? DivName { get; set; }
         public int? LevelId { get; set; }
         public string? LevelName { get; set; }
-        public int StrandId { get; set; }
+        public int? StrandId { get; set; }
         public string? StrandName { get; set; }
         public string? StudentType { get; set; }
         public int? NationalityId { get; set; }
@@ -52,11 +52,19 @@
         public long? BrgyId { get; set; }
         public string? HomeStreetAddress { get; set; }
         public string? CPPresentAddress { get; set; }
-        public string? StudentPic2x2 { get; set; }
-        public string? StudentBirthCert { get; set; }
-        public string? StudentBaptismal { get; set; }
-        public string? GoodMoral { get; set; }
-        public string? CurrentReportCard { get; set; }
+        public string? DocumentType { get; set; }
+        public string? FileName { get; set; }
+        public string? Remarks { get; set; }
+        //public string? StudentPic2x2 { get; set; }
+        //public string? StudentBirthCert { get; set; }
+        //public string? StudentBaptismal { get; set; }
+        //public string? GoodMoral { get; set; }
+        //public string? CurrentReportCard { get; set; }
+        public IFormFile? StudentPic2x2 { get; set; }
+        public IFormFile? StudentBirthCert { get; set; }
+        public IFormFile? StudentBaptismal { get; set; }
+        public IFormFile? GoodMoral { get; set; }
+        public IFormFile? CurrentReportCard { get; set; }
         public string? ActiveStatus { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }

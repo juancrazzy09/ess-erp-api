@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace API.Models
+namespace API.Models;
+
+public partial class DivisionTable
 {
-    public class DivisionTable
-    {
-        [Key]
-        public int DivId { get; set; }
-        public string? DivName { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public string? ActiveStatus { get; set; }
-    }
+    public int DivId { get; set; }
+
+    public string? DivName { get; set; }
+
+    public DateTime? DateCreated { get; set; }
+
+    public string? ActiveStatus { get; set; }
 }

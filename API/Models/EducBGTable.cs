@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace API.Models
+namespace API.Models;
+
+public partial class EducBgtable
 {
-    public class EducBGTable
-    {
-        [Key]
-        public int EducBgId { get; set; }
-        public string? EducBgName { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public string? ActiveStatus { get; set; }
-    }
+    public int EducBgId { get; set; }
+
+    public string? EducBgName { get; set; }
+
+    public DateTime? DateCreated { get; set; }
+
+    public string? ActiveStatus { get; set; }
 }

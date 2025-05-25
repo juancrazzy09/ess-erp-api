@@ -53,7 +53,7 @@
     public class StrandDto
     {
         public int StrandId { get; set; }
-        public int LevelId { get; set; }
+        public int? LevelId { get; set; }
         public string? StrandName { get; set; }
         public DateTime? DateCreated { get; set; }
     }

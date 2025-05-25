@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace API.Models
+namespace API.Models;
+
+public partial class ProvincesTable
 {
-    public class ProvincesTable
-    {
-        [Key]
-        public long ProvinceId { get; set; }
-        public string? ProvinceName { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public string? ActiveStatus { get; set; }
-    }
+    public long ProvinceId { get; set; }
+
+    public string? ProvinceName { get; set; }
+
+    public DateTime? DateCreated { get; set; }
+
+    public string? ActiveStatus { get; set; }
 }

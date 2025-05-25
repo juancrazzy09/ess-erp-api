@@ -54,7 +54,7 @@ namespace API
             //{
             //    option.UseSqlServer(Configuration.GetConnectionString("DBConnection") ?? "");
             //});
-            services.AddDbContext<DBContext>(option => {
+            services.AddDbContext<EssErpDbContext>(option => {
                 option.UseSqlServer(Configuration.GetConnectionString("DBConnection") ?? "");
             });
 

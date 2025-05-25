@@ -12,19 +12,397 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/StudentDtos"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StudentDtos"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/StudentDtos"
+                "type": "object",
+                "properties": {
+                  "StudentId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "StudentNumber": {
+                    "type": "string"
+                  },
+                  "ApplicationNumber": {
+                    "type": "string"
+                  },
+                  "Fname": {
+                    "type": "string"
+                  },
+                  "Mname": {
+                    "type": "string"
+                  },
+                  "Lname": {
+                    "type": "string"
+                  },
+                  "Gender": {
+                    "type": "string"
+                  },
+                  "DateOfBirth": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "PlaceOfBirth": {
+                    "type": "string"
+                  },
+                  "CampusId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "CampusName": {
+                    "type": "string"
+                  },
+                  "DivId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "DivName": {
+                    "type": "string"
+                  },
+                  "LevelId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "LevelName": {
+                    "type": "string"
+                  },
+                  "StrandId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "StrandName": {
+                    "type": "string"
+                  },
+                  "StudentType": {
+                    "type": "string"
+                  },
+                  "NationalityId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "NationalityName": {
+                    "type": "string"
+                  },
+                  "ReligionId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "ReligionName": {
+                    "type": "string"
+                  },
+                  "F_Fname": {
+                    "type": "string"
+                  },
+                  "F_Mname": {
+                    "type": "string"
+                  },
+                  "F_Lname": {
+                    "type": "string"
+                  },
+                  "FathersName": {
+                    "type": "string"
+                  },
+                  "FathersOccupation": {
+                    "type": "string"
+                  },
+                  "FathersEmail": {
+                    "type": "string"
+                  },
+                  "FathersPhone": {
+                    "type": "string"
+                  },
+                  "M_Fname": {
+                    "type": "string"
+                  },
+                  "M_Mname": {
+                    "type": "string"
+                  },
+                  "M_Lname": {
+                    "type": "string"
+                  },
+                  "MothersMaidenName": {
+                    "type": "string"
+                  },
+                  "MothersOccupation": {
+                    "type": "string"
+                  },
+                  "MothersEmail": {
+                    "type": "string"
+                  },
+                  "MothersPhone": {
+                    "type": "string"
+                  },
+                  "C_Fname": {
+                    "type": "string"
+                  },
+                  "C_Mname": {
+                    "type": "string"
+                  },
+                  "C_Lname": {
+                    "type": "string"
+                  },
+                  "ContactPerson": {
+                    "type": "string"
+                  },
+                  "ContactPersonEmail": {
+                    "type": "string"
+                  },
+                  "EmailVerificationCode": {
+                    "type": "string"
+                  },
+                  "CPRelationship": {
+                    "type": "string"
+                  },
+                  "HomePhoneNo": {
+                    "type": "string"
+                  },
+                  "MobilePhoneNo": {
+                    "type": "string"
+                  },
+                  "ProvinceId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "MunicipalityId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "BrgyId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "HomeStreetAddress": {
+                    "type": "string"
+                  },
+                  "CPPresentAddress": {
+                    "type": "string"
+                  },
+                  "DocumentType": {
+                    "type": "string"
+                  },
+                  "FileName": {
+                    "type": "string"
+                  },
+                  "Remarks": {
+                    "type": "string"
+                  },
+                  "StudentPic2x2": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "StudentBirthCert": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "StudentBaptismal": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "GoodMoral": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "CurrentReportCard": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "ActiveStatus": {
+                    "type": "string"
+                  },
+                  "DateCreated": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "DateModified": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "StudentId": {
+                  "style": "form"
+                },
+                "StudentNumber": {
+                  "style": "form"
+                },
+                "ApplicationNumber": {
+                  "style": "form"
+                },
+                "Fname": {
+                  "style": "form"
+                },
+                "Mname": {
+                  "style": "form"
+                },
+                "Lname": {
+                  "style": "form"
+                },
+                "Gender": {
+                  "style": "form"
+                },
+                "DateOfBirth": {
+                  "style": "form"
+                },
+                "PlaceOfBirth": {
+                  "style": "form"
+                },
+                "CampusId": {
+                  "style": "form"
+                },
+                "CampusName": {
+                  "style": "form"
+                },
+                "DivId": {
+                  "style": "form"
+                },
+                "DivName": {
+                  "style": "form"
+                },
+                "LevelId": {
+                  "style": "form"
+                },
+                "LevelName": {
+                  "style": "form"
+                },
+                "StrandId": {
+                  "style": "form"
+                },
+                "StrandName": {
+                  "style": "form"
+                },
+                "StudentType": {
+                  "style": "form"
+                },
+                "NationalityId": {
+                  "style": "form"
+                },
+                "NationalityName": {
+                  "style": "form"
+                },
+                "ReligionId": {
+                  "style": "form"
+                },
+                "ReligionName": {
+                  "style": "form"
+                },
+                "F_Fname": {
+                  "style": "form"
+                },
+                "F_Mname": {
+                  "style": "form"
+                },
+                "F_Lname": {
+                  "style": "form"
+                },
+                "FathersName": {
+                  "style": "form"
+                },
+                "FathersOccupation": {
+                  "style": "form"
+                },
+                "FathersEmail": {
+                  "style": "form"
+                },
+                "FathersPhone": {
+                  "style": "form"
+                },
+                "M_Fname": {
+                  "style": "form"
+                },
+                "M_Mname": {
+                  "style": "form"
+                },
+                "M_Lname": {
+                  "style": "form"
+                },
+                "MothersMaidenName": {
+                  "style": "form"
+                },
+                "MothersOccupation": {
+                  "style": "form"
+                },
+                "MothersEmail": {
+                  "style": "form"
+                },
+                "MothersPhone": {
+                  "style": "form"
+                },
+                "C_Fname": {
+                  "style": "form"
+                },
+                "C_Mname": {
+                  "style": "form"
+                },
+                "C_Lname": {
+                  "style": "form"
+                },
+                "ContactPerson": {
+                  "style": "form"
+                },
+                "ContactPersonEmail": {
+                  "style": "form"
+                },
+                "EmailVerificationCode": {
+                  "style": "form"
+                },
+                "CPRelationship": {
+                  "style": "form"
+                },
+                "HomePhoneNo": {
+                  "style": "form"
+                },
+                "MobilePhoneNo": {
+                  "style": "form"
+                },
+                "ProvinceId": {
+                  "style": "form"
+                },
+                "MunicipalityId": {
+                  "style": "form"
+                },
+                "BrgyId": {
+                  "style": "form"
+                },
+                "HomeStreetAddress": {
+                  "style": "form"
+                },
+                "CPPresentAddress": {
+                  "style": "form"
+                },
+                "DocumentType": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                },
+                "Remarks": {
+                  "style": "form"
+                },
+                "StudentPic2x2": {
+                  "style": "form"
+                },
+                "StudentBirthCert": {
+                  "style": "form"
+                },
+                "StudentBaptismal": {
+                  "style": "form"
+                },
+                "GoodMoral": {
+                  "style": "form"
+                },
+                "CurrentReportCard": {
+                  "style": "form"
+                },
+                "ActiveStatus": {
+                  "style": "form"
+                },
+                "DateCreated": {
+                  "style": "form"
+                },
+                "DateModified": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -396,255 +774,6 @@
           },
           "Password": {
             "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StudentDtos": {
-        "type": "object",
-        "properties": {
-          "StudentId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "StudentNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "ApplicationNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "Fname": {
-            "type": "string",
-            "nullable": true
-          },
-          "Mname": {
-            "type": "string",
-            "nullable": true
-          },
-          "Lname": {
-            "type": "string",
-            "nullable": true
-          },
-          "Gender": {
-            "type": "string",
-            "nullable": true
-          },
-          "DateOfBirth": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "PlaceOfBirth": {
-            "type": "string",
-            "nullable": true
-          },
-          "CampusId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "CampusName": {
-            "type": "string",
-            "nullable": true
-          },
-          "DivId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "DivName": {
-            "type": "string",
-            "nullable": true
-          },
-          "LevelId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "LevelName": {
-            "type": "string",
-            "nullable": true
-          },
-          "StrandId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "StrandName": {
-            "type": "string",
-            "nullable": true
-          },
-          "StudentType": {
-            "type": "string",
-            "nullable": true
-          },
-          "NationalityId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "NationalityName": {
-            "type": "string",
-            "nullable": true
-          },
-          "ReligionId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "ReligionName": {
-            "type": "string",
-            "nullable": true
-          },
-          "F_Fname": {
-            "type": "string",
-            "nullable": true
-          },
-          "F_Mname": {
-            "type": "string",
-            "nullable": true
-          },
-          "F_Lname": {
-            "type": "string",
-            "nullable": true
-          },
-          "FathersName": {
-            "type": "string",
-            "nullable": true
-          },
-          "FathersOccupation": {
-            "type": "string",
-            "nullable": true
-          },
-          "FathersEmail": {
-            "type": "string",
-            "nullable": true
-          },
-          "FathersPhone": {
-            "type": "string",
-            "nullable": true
-          },
-          "M_Fname": {
-            "type": "string",
-            "nullable": true
-          },
-          "M_Mname": {
-            "type": "string",
-            "nullable": true
-          },
-          "M_Lname": {
-            "type": "string",
-            "nullable": true
-          },
-          "MothersMaidenName": {
-            "type": "string",
-            "nullable": true
-          },
-          "MothersOccupation": {
-            "type": "string",
-            "nullable": true
-          },
-          "MothersEmail": {
-            "type": "string",
-            "nullable": true
-          },
-          "MothersPhone": {
-            "type": "string",
-            "nullable": true
-          },
-          "C_Fname": {
-            "type": "string",
-            "nullable": true
-          },
-          "C_Mname": {
-            "type": "string",
-            "nullable": true
-          },
-          "C_Lname": {
-            "type": "string",
-            "nullable": true
-          },
-          "ContactPerson": {
-            "type": "string",
-            "nullable": true
-          },
-          "ContactPersonEmail": {
-            "type": "string",
-            "nullable": true
-          },
-          "EmailVerificationCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "CPRelationship": {
-            "type": "string",
-            "nullable": true
-          },
-          "HomePhoneNo": {
-            "type": "string",
-            "nullable": true
-          },
-          "MobilePhoneNo": {
-            "type": "string",
-            "nullable": true
-          },
-          "ProvinceId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "MunicipalityId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "BrgyId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "HomeStreetAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "CPPresentAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "StudentPic2x2": {
-            "type": "string",
-            "nullable": true
-          },
-          "StudentBirthCert": {
-            "type": "string",
-            "nullable": true
-          },
-          "StudentBaptismal": {
-            "type": "string",
-            "nullable": true
-          },
-          "GoodMoral": {
-            "type": "string",
-            "nullable": true
-          },
-          "CurrentReportCard": {
-            "type": "string",
-            "nullable": true
-          },
-          "ActiveStatus": {
-            "type": "string",
-            "nullable": true
-          },
-          "DateCreated": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "DateModified": {
-            "type": "string",
-            "format": "date-time",
             "nullable": true
           }
         },

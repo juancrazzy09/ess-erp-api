@@ -349,10 +349,11 @@ F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\staticwebassets\msbuild
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\staticwebassets.pack.json
-F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\API.csproj.Up2Date
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\API.dll
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\refint\API.dll
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\API.pdb
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\ref\API.dll
+F:\Dev Files\MainFolder\ess-erp-api\API\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+F:\Dev Files\MainFolder\ess-erp-api\API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

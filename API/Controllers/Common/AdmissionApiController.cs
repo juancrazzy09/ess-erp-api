@@ -18,7 +18,7 @@ namespace API.Controllers.Common
         }
         [HttpPost]
         [Route("student-online-application")]
-        public async Task<IActionResult> InsertStudentOnlineApp([FromBody] StudentDtos student)
+        public async Task<IActionResult> InsertStudentOnlineApp([FromForm] StudentDtos student )
         {
             try
             {

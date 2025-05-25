@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace API.Models
+namespace API.Models;
+
+public partial class ReligionTable
 {
-    public class ReligionTable
-    {
-        [Key]
-        public long ReligionId { get; set; }
-        public string? ReligionName { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public string? ActiveStatus { get; set; }
-    }
+    public long ReligionId { get; set; }
+
+    public string? ReligionName { get; set; }
+
+    public DateTime? DateCreated { get; set; }
+
+    public string? ActiveStatus { get; set; }
 }
