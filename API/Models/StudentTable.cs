@@ -41,6 +41,8 @@ public partial class StudentTable
 
     public DateTime? DateModified { get; set; }
 
+    public virtual ICollection<AdmissionGpatable> AdmissionGpatables { get; set; } = new List<AdmissionGpatable>();
+
     public virtual ICollection<FathersTable> FathersTables { get; set; } = new List<FathersTable>();
 
     public virtual ICollection<GuardianTable> GuardianTables { get; set; } = new List<GuardianTable>();

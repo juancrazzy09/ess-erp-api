@@ -497,6 +497,92 @@
         }
       }
     },
+    "/api/admission/insert-admission-gpa": {
+      "post": {
+        "tags": [
+          "AdmissionApi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GPADtos"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GPADtos"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GPADtos"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admission/get-student-gpa": {
+      "post": {
+        "tags": [
+          "AdmissionApi"
+        ],
+        "parameters": [
+          {
+            "name": "StudentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admission/get-student-docs-id": {
+      "post": {
+        "tags": [
+          "AdmissionApi"
+        ],
+        "parameters": [
+          {
+            "name": "StudentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/auth/create-account": {
       "post": {
         "tags": [
@@ -774,6 +860,51 @@
           },
           "Password": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GPADtos": {
+        "type": "object",
+        "properties": {
+          "SubjectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "StudentId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SubjectCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubjectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Grade": {
+            "type": "string",
+            "nullable": true
+          },
+          "DateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "DateModified": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ActiveStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "EncodedBy": {
+            "type": "integer",
+            "format": "int64",
             "nullable": true
           }
         },

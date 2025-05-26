@@ -16,6 +16,8 @@ public partial class EssErpDbContext : DbContext
     {
     }
 
+    public virtual DbSet<AdmissionGpatable> AdmissionGpatables { get; set; }
+
     public virtual DbSet<BarangayTable> BarangayTables { get; set; }
 
     public virtual DbSet<CampusTable> CampusTables { get; set; }
@@ -52,10 +54,26 @@ public partial class EssErpDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=erp-db.cavlaw09wtuu.ap-southeast-1.rds.amazonaws.com;Database=EssErpDb;User Id=admin;Password=EssAdmin1234;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=erp-db.cavlaw09wtuu.ap-southeast-1.rds.amazonaws.com;Database=EssErpDb;User ID=admin;Password=EssAdmin1234;Encrypt=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AdmissionGpatable>(entity =>
+        {
+            entity.HasKey(e => e.SubjectId);
+
+            entity.ToTable("AdmissionGPATable");
+
+            entity.Property(e => e.ActiveStatus).HasMaxLength(50);
+            entity.Property(e => e.DateCreated).HasColumnType("datetime");
+            entity.Property(e => e.DateModified).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.AdmissionGpatables)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdmissionGPATable_StudentTable");
+        });
+
         modelBuilder.Entity<BarangayTable>(entity =>
         {
             entity.HasKey(e => e.BrgyId);

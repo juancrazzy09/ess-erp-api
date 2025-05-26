@@ -82,5 +82,52 @@ namespace API.Controllers.Common
                 return StatusCode(500, ex.Message);
             }
         }
+        [Authorize]
+        [HttpPost]
+        [Route("insert-admission-gpa")]
+        public async Task<IActionResult> InsertGpaOfStudent([FromBody] List<GPADtos> reqList)
+        {
+            try
+            {
+                var res = await _iadmissionRepository.InsertGpaOfStudent(reqList);
+                return Ok(res);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("get-student-gpa")]
+        public async Task<IActionResult> GetStudentGpaById([FromQuery] long StudentId = 0)
+        {
+            try
+            {
+                var res = await _iadmissionRepository.GetStudentGpaById(StudentId);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("get-student-docs-id")]
+        public async Task<IActionResult> GetStudentDocsById([FromQuery] long StudentId = 0)
+        {
+            try
+            {
+                var res = await _iadmissionRepository.GetStudentDocsById(StudentId);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

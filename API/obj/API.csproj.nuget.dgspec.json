@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Dev Files\\MainFolder\\ess-erp-api\\API\\API.csproj": {}
+    "D:\\Dev files\\MainFolder\\ess-erp-api\\API\\API.csproj": {}
   },
   "projects": {
-    "F:\\Dev Files\\MainFolder\\ess-erp-api\\API\\API.csproj": {
+    "D:\\Dev files\\MainFolder\\ess-erp-api\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Dev Files\\MainFolder\\ess-erp-api\\API\\API.csproj",
+        "projectUniqueName": "D:\\Dev files\\MainFolder\\ess-erp-api\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "F:\\Dev Files\\MainFolder\\ess-erp-api\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Jaymark\\.nuget\\packages\\",
-        "outputPath": "F:\\Dev Files\\MainFolder\\ess-erp-api\\API\\obj\\",
+        "projectPath": "D:\\Dev files\\MainFolder\\ess-erp-api\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\JM\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev files\\MainFolder\\ess-erp-api\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jaymark\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\JM\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -104,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

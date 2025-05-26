@@ -2,6 +2,7 @@
 using API.Uitilities.DTOs;
 using API.Uitilities.Helper;
 using API.Uitilities.Services;
+using Azure.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -120,10 +121,11 @@ namespace API.Uitilities.Repositories
                             UserId = student.StudentId,
                             UploadedById = student.StudentId,
                             DocumentType = "StudentPic2x2",
+                            OriginalFileName = student.StudentPic2x2.FileName,
                             FileName = Path.GetFileName(filePath),
                             FilePath = filePath,
                             Remarks = "Uploaded in Online App",
-                            ActiveStatus = student.ActiveStatus,
+                            ActiveStatus = "Y",
                             DateCreated = DateTime.Now
                         });
                         await db.SaveChangesAsync();
@@ -137,10 +139,11 @@ namespace API.Uitilities.Repositories
                             UserId = student.StudentId,
                             UploadedById = student.StudentId,
                             DocumentType = "StudentBirthCert",
+                            OriginalFileName = student.StudentBirthCert.FileName,
                             FileName = Path.GetFileName(filePath),
                             FilePath = filePath,
                             Remarks = "Uploaded in Online App",
-                            ActiveStatus = student.ActiveStatus,
+                            ActiveStatus = "Y",
                             DateCreated = DateTime.Now
                         });
                         await db.SaveChangesAsync();
@@ -154,10 +157,11 @@ namespace API.Uitilities.Repositories
                             UserId = student.StudentId,
                             UploadedById = student.StudentId,
                             DocumentType = "StudentBaptismal",
+                            OriginalFileName = student.StudentBaptismal.FileName,
                             FileName = Path.GetFileName(filePath),
                             FilePath = filePath,
                             Remarks = "Uploaded in Online App",
-                            ActiveStatus = student.ActiveStatus,
+                            ActiveStatus = "Y",
                             DateCreated = DateTime.Now
                         });
                         await db.SaveChangesAsync();
@@ -171,10 +175,11 @@ namespace API.Uitilities.Repositories
                             UserId = student.StudentId,
                             UploadedById = student.StudentId,
                             DocumentType = "GoodMoral",
+                            OriginalFileName = student.GoodMoral.FileName,
                             FileName = Path.GetFileName(filePath),
                             FilePath = filePath,
                             Remarks = "Uploaded in Online App",
-                            ActiveStatus = student.ActiveStatus,
+                            ActiveStatus = "Y",
                             DateCreated = DateTime.Now
                         });
                         await db.SaveChangesAsync();
@@ -188,10 +193,11 @@ namespace API.Uitilities.Repositories
                             UserId = student.StudentId,
                             UploadedById = student.StudentId,
                             DocumentType = "CurrentReportCard",
+                            OriginalFileName = student.CurrentReportCard.FileName,
                             FileName = Path.GetFileName(filePath),
                             FilePath = filePath,
                             Remarks = "Uploaded in Online App",
-                            ActiveStatus = student.ActiveStatus,
+                            ActiveStatus = "Y",
                             DateCreated = DateTime.Now
                         });
                         await db.SaveChangesAsync();
@@ -664,6 +670,100 @@ namespace API.Uitilities.Repositories
                 return finalQuery;
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<List<GPADtos>> InsertGpaOfStudent(List<GPADtos> reqList)
+        {
+            try
+            {
+                var resultList = new List<GPADtos>();
+
+                foreach (var req in reqList)
+                {
+                    bool exists = await db.AdmissionGpatables.AnyAsync(x =>
+                       x.StudentId == req.StudentId &&
+                       x.SubjectCode == req.SubjectCode &&
+                       x.ActiveStatus == "Y"
+                    );
+                    if (exists)
+                    {
+                        // Skip this item and continue to the next
+                        continue;
+                    }
+                    var entity = new AdmissionGpatable
+                    {
+                        StudentId = req.StudentId,
+                        SubjectCode = req.SubjectCode,
+                        SubjectName = req.SubjectName,
+                        Grade = req.Grade,
+                        DateCreated = DateTime.Now,
+                        ActiveStatus = "Y",
+                        EncodedBy = req.EncodedBy,
+                    };
+
+                    db.AdmissionGpatables.Add(entity);
+                    resultList.Add(req);
+                }
+
+                await db.SaveChangesAsync();
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<List<GPADtos>> GetStudentGpaById(long StudentId)
+        {
+            try
+            {
+                var list = await (from gpaTable in db.AdmissionGpatables
+                                  where gpaTable.StudentId == StudentId
+                                  select new GPADtos
+                                  {
+                                      SubjectId = gpaTable.SubjectId,
+                                      StudentId = gpaTable.StudentId,
+                                      SubjectCode = gpaTable.SubjectCode,
+                                      SubjectName = gpaTable.SubjectName,
+                                      Grade = gpaTable.Grade,
+                                      DateCreated = gpaTable.DateCreated,
+                                      DateModified = gpaTable.DateModified,
+                                      ActiveStatus = gpaTable.ActiveStatus,
+                                      EncodedBy = gpaTable.EncodedBy,
+
+                                  }).ToListAsync();
+                return list;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<List<DocumentSubmittedDtos>> GetStudentDocsById(long StudentId)
+        {
+            try
+            {
+                var list = await (from docsTable in db.DocumentFileTables
+                            where docsTable.UserId == StudentId
+                            select new DocumentSubmittedDtos
+                            {
+                                FileId = docsTable.FileId,
+                                UserId = docsTable.UserId,
+                                UploadedById = docsTable.UploadedById,
+                                DocumentType = docsTable.DocumentType,
+                                OriginalFileName = docsTable.OriginalFileName,
+                                FileName = docsTable.FileName,
+                                FilePath = docsTable.FilePath,
+                                Remarks = docsTable.Remarks,
+                                ActiveStatus = docsTable.ActiveStatus,
+                                DateCreated = docsTable.DateCreated,
+                                DateModified = docsTable.DateModified,
+                            }).ToListAsync();
+                return list;
+            }
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }

@@ -42,6 +42,38 @@
   },
   {
     "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "GetStudentDocsById",
+    "RelativePath": "api/admission/get-student-docs-id",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "StudentId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "GetStudentGpaById",
+    "RelativePath": "api/admission/get-student-gpa",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "StudentId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
     "Method": "GetStudentById",
     "RelativePath": "api/admission/get-student-id",
     "HttpMethod": "POST",
@@ -52,6 +84,22 @@
         "Name": "StudentId",
         "Type": "System.Int64",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.Common.AdmissionApiController",
+    "Method": "InsertGpaOfStudent",
+    "RelativePath": "api/admission/insert-admission-gpa",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reqList",
+        "Type": "System.Collections.Generic.List\u00601[[API.Uitilities.DTOs.GPADtos, API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

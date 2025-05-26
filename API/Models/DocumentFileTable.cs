@@ -13,6 +13,8 @@ public partial class DocumentFileTable
 
     public string? DocumentType { get; set; }
 
+    public string? OriginalFileName { get; set; }
+
     public string? FileName { get; set; }
 
     public string? FilePath { get; set; }
